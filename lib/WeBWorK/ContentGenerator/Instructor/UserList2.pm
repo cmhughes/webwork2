@@ -15,8 +15,6 @@
 ################################################################################
 
 package WeBWorK::ContentGenerator::Instructor::UserList2;
-use base qw(WeBWorK);
-use base qw(WeBWorK::ContentGenerator);
 use base qw(WeBWorK::ContentGenerator::Instructor);
 
 =head1 NAME
@@ -71,7 +69,6 @@ use warnings;
 #use CGI qw(-nosticky );
 use WeBWorK::CGI;
 use WeBWorK::File::Classlist;
-use WeBWorK::DB qw(check_user_id);
 use WeBWorK::Utils qw(readFile readDirectory cryptPassword);
 use constant HIDE_USERS_THRESHHOLD => 200;
 use constant EDIT_FORMS => [qw(cancelEdit saveEdit)];
