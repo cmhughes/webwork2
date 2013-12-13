@@ -4,9 +4,6 @@ $(function(){
     $('input:submit').addClass('btn btn-primary');
     $('.nav_button').addClass('btn btn-primary');
     $('.classlist').addClass('table table-condensed classlist-table');
-
-    // Make grey_buttons disabled buttons
-    $('.gray_button').addClass('btn disabled').removeClass('gray_button');
     
     // Make grey_buttons disabled buttons
     $('.gray_button').addClass('btn disabled').removeClass('gray_button');
@@ -14,8 +11,6 @@ $(function(){
     // replace pencil gifs by something prettier
     $('td a:has(img[src$="edit.gif"])').each(function () { $(this).html($(this).html().replace(/<img.*>/," <i class='icon-pencil'></i>")); });
 
-    // Turn summaries into popovers
-    $('a.table-summary').popover();
 
     // Sets login form input to bigger size
     $('#login_form input').addClass('input-large');
@@ -41,12 +36,12 @@ $(function(){
     $('.viewOptions input:submit').addClass('btn-small');
     $('.facebookbox input:submit').addClass('btn-small');
 
-    //Reformats the problem_set_table.  
+    //Reformats the problem_set_table.
     $('#problem-sets-form').addClass('form-inline');
     $('.body:has(.problem_set_table)').addClass('problem_set_body');
     $('.problem_set_table').addClass('table');
     if($('.problem_set_table th:contains("Test Score")').length > 0) {
-	$('.problem_set_table').addClass('small-table-text');
+        $('.problem_set_table').addClass('small-table-text');
     }
     $('.problem_set_table td a').addClass('btn btn-primary btn-small');
     $('#hardcopy-form').addClass('form-inline');
@@ -57,22 +52,10 @@ $(function(){
     // Problem formatting
     $('#problemMainForm').addClass('problem-main-form form-inline');
     $('.attemptResults').addClass('table table-condensed table-bordered');
-    $('.problem .problem-content').addClass('well well-small');
 
-    $("table.attemptResults td[onmouseover*='Tip']").each(function () {
-	var data = $(this).attr('onmouseover').match(/Tip\('(.*)'/);
-	if (data) { data = data[1] }; // not sure I understand this, but sometimes the match fails 
-	//on the presentation of a matrix  and then causes errors throughout the rest of the script
-	$(this).attr('onmouseover','');
-	if (data) {
-	    $(this).wrapInner('<div class="results-popover" />');
+    // Past answers formatting
+    $('#past-answer-table').addClass('table');
 
-	    var popdiv = $('div', this);
-	    popdiv.popover({placement:'bottom', html:'true', trigger:'click',content:data});	
-	} 
-	    
-    });
-    
     // Grades formatting
     $('#grades_table').addClass('table table-bordered table-condensed');
     $('#grades_table a').addClass('btn btn-primary');
@@ -80,7 +63,11 @@ $(function(){
     //Problem Grader formatting
     $('#problem-grader-form').addClass('form-inline');
     $('#problem-grader-form input:button').addClass('btn btn-small btn-info');
-    $('#problem-grader-form td').find('p:last').removeClass('essay-answer graded-answer');
+
+    //Instructor Tools formatting
+    $('.ButtonRow .btn').addClass('btn-mini');
+    $('.ButtonRowCenter .btn').addClass('btn-mini');
+    $('.ScrollingRecordList .btn').addClass('btn-small');
 
     //CourseConfiguration
     $('#config-form').addClass('form-inline');
@@ -92,32 +79,30 @@ $(function(){
 
     //Classlist Editor 1&2 configuration
     $('#classlist-form').addClass('form-inline user-list-form');
+    $('.user-list-form select').addClass('input-medium');
     $('.user-list-form input:button').addClass('btn btn-info');
     $('.user-list-form input:reset').addClass('btn btn-info');
     $('.user-list-form').wrapInner('<div />');
-    $('.classlist-table').addClass('table table-condensed table-bordered');
-    $('.classlist-table').attr('border',0);
-    $('.classlist-table').attr('cellpadding',0);
+    $('.classlist-table').addClass('small-table-text table table-condensed');
     $('#show_hide').addClass('btn btn-info');
 
     //Homework sets editor config
     $('#problemsetlist').addClass('form-inline set-list-form');
     $('#problemsetlist2').addClass('form-inline set-list-form');
-    $('.set-id-tooltip').tooltip({trigger: 'hover'});
+    $('.set-list-form select').addClass('input-medium');
+    $('.set-list-form input:text').addClass('input-medium');
+    $('.set-list-form select[name="action.filter.scope"]').addClass('input-large').removeClass('input-medium');
+    $('.set-list-form select[name="action.import.source"]').addClass('input-large').removeClass('input-medium');
     $('.set-list-form input:button').addClass('btn btn-info');
     $('.set-list-form input:reset').addClass('btn btn-info');
     $('.set-list-form').wrapInner('<div />');
     $('.set_table').addClass('small-table-text table table-condensed');
+    $('.set_table input:text').removeClass('input-medium');
     $('#show_hide').addClass('btn btn-info');
     $('#problem_set_form').addClass('form-inline');
     $('#user-set-form').addClass('form-inline user-assign-form');
     $('#set-user-form').addClass('form-inline user-assign-form');
-    $('.set_table input[name="selected_sets"]').each(function () {
-	var label = $(this).parent().children('label');
-	label.prepend(this);
-	label.addClass('checkbox');
-    });
-    
+
     //PG editor styling
     $('#editor').addClass('form-inline span9');
     $('#editor a').addClass('btn btn-small btn-info');
@@ -125,6 +110,7 @@ $(function(){
 
     //Achievement Editor
     $('#achievement-list').addClass('form-inline user-list-form');
+    $('.user-list-form select').addClass('input-medium');
     $('.user-list-form input:button').addClass('btn btn-info');
     $('.user-list-form input:reset').addClass('btn btn-info');
     $('.user-list-form').wrapInner('<div />');
@@ -160,21 +146,7 @@ $(function(){
     $('div.tabberlive').removeClass('tabberlive').addClass('tab-content');
     $('div.tabbertab').each(function() { $(this).removeClass('tabbertab').addClass('tab-pane').attr('id',$(this).find('h3').html().replace(/\s+/g,''))});
     $('div.tab-pane h3').remove();
-    if ($('li.tabberactive a').length > 0) { 
+    if ($('li.tabberactive a').length > 0) {
         $('li.tabberactive a').tab('show');}
 
-    //past answer table
-    $('.past-answer-table').addClass("table table-striped");
-
-     //GatewayQuiz
-    $('.gwPrintMe a').addClass('btn btn-info');
-    $('.gwPreview a').addClass('btn');
-
 })
-
-addOnLoadEvent(function () {
-
-    $('.ui-datepicker-trigger').addClass('btn').parent().addClass('input-append');
-
-});
-
